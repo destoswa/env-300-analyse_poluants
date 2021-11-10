@@ -13,13 +13,16 @@ PCB_raw = readtable('data/PCB_2021.csv','HeaderLines',2);
 PAH_raw = readtable('data/PAH_2021.csv','HeaderLines',2);
 PAH_raw = PAH_raw(1:17,:);
 %traitement des données:
-PCB_calibrate = str2double(table2array(PCB_raw(8:end,2:8)));
-PCB_datas = str2double(table2array(PCB_raw(8:end,9:end)));
+PCB_calibrate = str2double(table2array(PCB_raw(2:end,2:9)));
+PCB_datas = str2double(table2array(PCB_raw(2:end,9:end)));
 PCB_datas(isnan(PCB_datas)) = 0;
 PAH_calibrate = str2double(table2array(PAH_raw(5:end,2:13)));
 PAH_datas = str2double(table2array(PAH_raw(5:end,14:end)));
 PAH_datas(isnan(PAH_datas)) = 0;
+PCB_elements = table2cell(PCB_raw(2:end,1));
+PAH_elements = table2cell(PAH_raw(5:end,1));
+
 
 
 save data_macroparametre.mat macroparametre;
-save data_PCB_PAH.mat PCB_calibrate PCB_datas PAH_calibrate PAH_datas;
+save data_PCB_PAH.mat PCB_calibrate PCB_datas PCB_elements PAH_calibrate PAH_datas PAH_elements;
