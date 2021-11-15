@@ -13,14 +13,18 @@ PCB_raw = readtable('data/PCB_2021.csv','HeaderLines',2);
 PAH_raw = readtable('data/PAH_2021.csv','HeaderLines',2);
 PAH_raw = PAH_raw(1:17,:);
 %traitement des données:
+PCBPAHgroupNames = PCB_raw.Properties.VariableNames;
+PCBPAHgroupNames = PCBPAHgroupNames(10:end);
+PCBPAHgroupNames = extractAfter(PCBPAHgroupNames,"x");
 PCB_calibrate = str2double(table2array(PCB_raw(2:end,2:9)));
 PCB_datas = str2double(table2array(PCB_raw(2:end,10:end)));
 PCB_datas(isnan(PCB_datas)) = 0;
-PAH_calibrate = str2double(table2array(PAH_raw(5:end,2:13)));
-PAH_datas = str2double(table2array(PAH_raw(5:end,14:end)));
+PAH_calibrate = str2double(table2array(PAH_raw(2:end,2:13)));
+PAH_calibrate(isnan(PAH_calibrate))=0;
+PAH_datas = str2double(table2array(PAH_raw(2:end,14:end)));
 PAH_datas(isnan(PAH_datas)) = 0;
 PCB_elements = table2cell(PCB_raw(2:end,1));
-PAH_elements = table2cell(PAH_raw(5:end,1));
+PAH_elements = table2cell(PAH_raw(2:end,1));
 
 %extraction des macroparamètres de 2007 à 2016:
 macro_old_raw = readtable('data/Macroparametres_07-16.csv','FileEncoding','UTF8');
@@ -54,6 +58,6 @@ Groups_old = table2array(macro_old_raw(12,2:end))';
 
 %saving vairables
 save data_macroparametre.mat macroparametre;
-save data_PCB_PAH.mat PCB_calibrate PCB_datas PCB_elements PAH_calibrate PAH_datas PAH_elements;
+save data_PCB_PAH.mat PCB_calibrate PCB_datas PCB_elements PAH_calibrate PAH_datas PAH_elements PCBPAHgroupNames;
 save data_old_macro.mat Years_old Groups_old Temp_old Cond_old pH_old Ox_old Nitrate_old Nitrite_old Chlorure_old Sulfate_old Ammonium_old Phosphate_old TOC_old DOC_old;
 

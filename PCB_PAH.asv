@@ -5,7 +5,7 @@ set(0,'DefaultFigureWindowStyle','docked');
 load('data_PCB_PAH.mat');
 
 %plotting the graphs for all PCB
-fig_PCB_all = figure(1)
+figure(1)
 PCB_concentrations = zeros(12,13);
 %pour chaque PCB:
 for i=1:12
@@ -15,25 +15,20 @@ for i=1:12
     subplot(4,3,i);
     plot([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],'d','color','blue');
     hold on
-    plot(x,pl(1)*x,'-','color','blue');
+    plot(x,pl(1)*x+pl(2),'-','color','blue');
     plot((PCB_datas(i,:))./pl(1),PCB_datas(i,:),'x','color','red');
     hold off
     title(PCB_elements(i));
-    legend('calibrating values','linear regression','Measured values','location','northwest');
+    legend('calibrating values','linear regression','Measured values','location','southeast');
     xlabel('Concentration [ng/ml]');
     ylabel('Surface');
-    xmax = max([PCB_datas(i,:)./pl(1) PCB_calibrate(i,1:2:end)]);
-    xlim([0 xmax*1.05]);
-    ymax = max([PCB_datas(i,:) PCB_calibrate(i,2:2:end)]);
-    ylim([0 ymax*1.05]);
 end
-suptitle('All PCBs detected in the sites of interest');
-% saveas(fig_PCB_all,'./figures/PCB_all.png');
+
 %Calculation of total PCBs:
 PCB_totaux = zeros(13,1);
 PCB_totaux = sum(PCB_concentrations);
 
-% fig_PCB_Tot = figure(2);
+fig_PCB_Tot = figure(2);
 bar(PCB_totaux)
 Y = round(PCB_totaux,2);
 text(1:length(Y),Y,num2str(Y'),'vert','bottom','horiz','center'); 
@@ -92,7 +87,7 @@ for i=4:16
     xlabel('Concentration [ng/ml]');
     ylabel('Surface');
 end
-suptitle('All PAHs detected in the sites of interest');
+suptitle('PAH detected in at least one of the site');
 % saveas(fig_PAH_all,'./figures/PAH_all.png');
 
 %Calculation of total PAHs:
@@ -108,7 +103,7 @@ set(gca,'XTickLabel',PCBPAHgroupNames);
 ylabel('Concentration [ng/ml]');
 grid on
 grid minor
-% saveas(fig_PAH_Tot,'figures/PAH_Totaux.png');
+saveas(fig_PAH_Tot,'figures');
 
 %plotting the graph for the 6 PAH of interest
 fig_PAH_interest = figure(6);
