@@ -22,11 +22,10 @@ end
 
 %plotting the graph for the 3 PCB of interest
 figure(2)
-PCB_concentrations = zeros(3,14);
 for i=7:9
     pl = polyfit([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],1);
     x = linspace(PCB_calibrate(i,1),PCB_calibrate(i,7),200);
-    PCB_concentrations(i-6,:) = PCB_datas(i,:)-pl(2)./pl(1);
+    PCB_concentration = PCB_datas
     subplot(1,3,i-6);
     plot([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],'d','color','blue');
     hold on

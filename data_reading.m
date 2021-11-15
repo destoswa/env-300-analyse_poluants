@@ -51,8 +51,9 @@ DOC_old(isnan(Cond_old))=0;
 Years_old = str2double(table2array(macro_old_raw(1:10,1)));
 Groups_old = table2array(macro_old_raw(12,2:end))';
 
+
 %saving vairables
-save data_macroparametre.mat macroparametre;
-save data_PCB_PAH.mat PCB_calibrate PCB_datas PCB_elements PAH_calibrate PAH_datas PAH_elements;
-save data_old_macro.mat Years_old Groups_old Temp_old Cond_old pH_old Ox_old Nitrate_old Nitrite_old Chlorure_old Sulfate_old Ammonium_old Phosphate_old TOC_old DOC_old;
+% save data_macroparametre.mat macroparametre;
+% save data_PCB_PAH.mat PCB_calibrate PCB_datas PCB_elements PAH_calibrate PAH_datas PAH_elements;
+% save data_old_macro.mat Years_old Groups_old Temp_old Cond_old pH_old Ox_old Nitrate_old Nitrite_old Chlorure_old Sulfate_old Ammonium_old Phosphate_old TOC_old DOC_old;
 
