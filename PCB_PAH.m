@@ -10,27 +10,31 @@ PCB_concentrations = zeros(12,13);
 for i=1:12
     pl = polyfit([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],1);
     x = linspace(PCB_calibrate(i,1),PCB_calibrate(i,7),200);
-    PCB_concentrations(i,:) = (PCB_datas(i,:)-pl(2))./pl(1);
+    PCB_concentrations(i,:) = (PCB_datas(i,:))./pl(1);
     subplot(4,3,i);
     plot([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],'d','color','blue');
     hold on
     plot(x,pl(1)*x+pl(2),'-','color','blue');
-    plot((PCB_datas(i,:)-pl(2))./pl(1),PCB_datas(i,:),'x','color','red');
+    plot((PCB_datas(i,:))./pl(1),PCB_datas(i,:),'x','color','red');
     hold off
     title(PCB_elements(i));
     legend('calibrating values','linear regression','Measured values','location','southeast');
     xlabel('Concentration [ng/ml]');
     ylabel('Surface');
 end
-PCB_totaux = zeros(12,1);
-PCB_totaux = sum(PCB_concentrations');
+PCB_totaux = zeros(13,1);
+PCB_totaux = sum(PCB_concentrations);
 
-figure(4)
+fig_PCB_Tot = figure(4);
 bar(PCB_totaux)
 Y = round(PCB_totaux,2);
 text(1:length(Y),Y,num2str(Y'),'vert','bottom','horiz','center'); 
 title('PCB totaux 2021');
-set(gca,'XTickLabel',PCB_elements);
+% set(gca,'XTickLabel',PCB_elements);
+grid on
+grid minor
+% saveas(fig_PCB_Tot,'./figures/PCB_Totaux_2021.png');
+
 
 
 
