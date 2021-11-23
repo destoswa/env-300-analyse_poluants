@@ -64,7 +64,7 @@ for i=7:9
         ,'markersize',8);    
     hold off
     title(PCB_elements(i));
-    legend('linear regression','calibrating values','Measured values','location','northwest');
+    legend('calibrating values','linear regression','Measured values','location','northwest');
     xlabel('Concentration [ng/ml]');
     ylabel('Surface');
     xmax = max([PCB_datas(i,:)./pl(1) PCB_calibrate(i,1:2:end)]);
@@ -84,7 +84,7 @@ for i=7:9
     plot(PCB_calibrate(i,1:2:end),PCB_calibrate(i,2:2:end),'o',...
         'color','black','Markersize',4,'MarkerFaceColor','black');
     %data values
-    plot((PCB_datas(i,:))./pl(1),PCB_datas(i,:),'*','color','blue'...
+    plot((PCB_datas(i,:))./pl(1),PCB_datas(i,:),'x','color','blue'...
         ,'markersize',8);
     %enlighting our result:
     x_1M = PCB_datas(i,1)/pl(1);
@@ -96,7 +96,7 @@ for i=7:9
         ,'color',color,'Fontsize',12,'Fontweight','bold');
     hold off
     title('zoom');
-    legend('linear regression','calibrating values','Measured values','location','northwest');
+    legend('calibrating values','linear regression','Measured values','location','northwest');
     xlabel('Concentration [ng/ml]');
     ylabel('Surface');
 %     xmax = max([PCB_datas(i,:)./pl(1) PCB_calibrate(i,1:2:end)]);
