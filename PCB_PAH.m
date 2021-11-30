@@ -8,7 +8,7 @@ load('data_PCB_PAH.mat');
 % Plotting the graphs for all PCB
 % -------------------------------------------------------------------------
 
-fig_PCB_all = figure(1)
+fig_PCB_all = figure(1);
 PCB_concentrations = zeros(12,13);
 %for each PCB:
 for i=1:12
@@ -16,10 +16,15 @@ for i=1:12
     x = linspace(PCB_calibrate(i,1),PCB_calibrate(i,7),200);
     PCB_concentrations(i,:) = (PCB_datas(i,:))./pl(1);
     subplot(4,3,i);
-    plot([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],'d','color','blue');
+    %linear regression
+    lr = plot(x,pl(1)*x,'-','color','red','LineWidth',1.2);
     hold on
-    plot(x,pl(1)*x,'-','color','blue');
-    plot((PCB_datas(i,:))./pl(1),PCB_datas(i,:),'x','color','red');
+    %calibrating values
+    plot(PCB_calibrate(i,1:2:end),PCB_calibrate(i,2:2:end),'o',...
+        'color','black','Markersize',4,'MarkerFaceColor','black');
+    %data values
+    plot((PCB_datas(i,:))./pl(1),PCB_datas(i,:),'*','color','blue'...
+        ,'markersize',8);
     hold off
     title(PCB_elements(i));
     legend('calibrating values','linear regression','Measured values','location','northwest');
@@ -31,7 +36,7 @@ for i=1:12
     ylim([0 ymax*1.05]);
 end
 suptitle('All PCBs detected in the sites of interest');
-% saveas(fig_PCB_all,'./figures/PCB_all.png');
+% % % % % % % saveas(fig_PCB_all,'./figures/PCB_all.png');ne pas lancer cette ligne de code!!!
 
 % -------------------------------------------------------------------------
 % Computing and plotting of total PCBs:
@@ -126,11 +131,17 @@ for i=4:16
     pl = polyfit(PAH_calibrate(i,1:2:end),PAH_calibrate(i,2:2:end),1);
     x = linspace(PAH_calibrate(i,1),PAH_calibrate(i,11),200);
     PAH_concentrations(i,:) = (PAH_datas(i,:))./pl(1);
-    subplot(4,4,i-3);
-    plot(PAH_calibrate(i,1:2:end),PAH_calibrate(i,2:2:end),'d','color','blue');
+    subplot(5,3,i-3);
+    plot(x,pl(1)*x,'-','color','red','LineWidth',1.2);
     hold on
-    plot(x,pl(1)*x,'-','color','blue');
-    plot((PAH_datas(i,:))./pl(1),PAH_datas(i,:),'x','color','red');
+    plot(PAH_calibrate(i,1:2:end),PAH_calibrate(i,2:2:end),'o',...
+    'color','black','Markersize',4,'MarkerFaceColor','black');
+    plot((PAH_datas(i,:))./pl(1),PAH_datas(i,:),'*','color','blue'...
+    ,'markersize',8);
+%     plot(PAH_calibrate(i,1:2:end),PAH_calibrate(i,2:2:end),'d','color','blue');
+%     hold on
+%     plot(x,pl(1)*x,'-','color','blue');
+%     plot((PAH_datas(i,:))./pl(1),PAH_datas(i,:),'x','color','red');
     hold off
     legend('calibrating values','linear regression','Measured values','location','northwest');
     xmax = max([PAH_datas(i,:)./pl(1) PAH_calibrate(i,1:2:end)]);
@@ -142,7 +153,7 @@ for i=4:16
     ylabel('Surface');
 end
 suptitle('All PAHs detected in the sites of interest');
-% saveas(fig_PAH_all,'./figures/PAH_all.png');
+% % % % % % % saveas(fig_PAH_all,'./figures/PAH_all.png');ne pas lancer cette ligne de code!!!
 
 % -------------------------------------------------------------------------
 % Computation and plotting of total PAHs:
