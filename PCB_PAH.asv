@@ -83,29 +83,22 @@ PCB_totaux_ot(1,:) = PCB_2021_tot_mean;
 PCB_totaux_ot(2,:) = PCB_2019_tot_mean;
 PCB_totaux_ot = flipud(PCB_totaux_ot);
 PCB_totaux_ot_years = [flipud(PCB_tot_08to16_years)' 2019 2021];
-%removing an absurd value
-PCB_totaux_ot(10,5) = 0;
 % Plotting the graph for the total PCBs over the year
+%removing a b
 fig_PCB_over_time = figure(12);
 for i=1:size(PCB_totaux_ot,2)
    subplot(4,2,i)
 %    plot(PCB_totaux_ot_years, PCB_totaux_ot(:,i),'x','MarkerSize',12);
-%    bar(PCB_totaux_ot_years, PCB_totaux_ot(:,i));
-   bar(PCB_totaux_ot(:,i));
-   hold on
+   bar(PCB_totaux_ot_years, PCB_totaux_ot(:,i));
    ylabel('Concentration [ng/ml]');
    title(extractAfter(PCB_tot_08to16_groupNames(i),'x'));
-   Y = round(PCB_totaux_ot(:,i),2);
-   text(1:length(Y),Y,num2str(Y),'vert','bottom','horiz','center');
-   hold off
-   set(gca,'XTickLabel',PCB_totaux_ot_years);
+   xlim([2007.5 2021.5]);
    ylim([0 max(PCB_totaux_ot(:,i))*1.2]);
    if i == 5
       ylim([0 30]); 
    end
 end
 suptitle('Total concentration of PCBs over the years for each group');
-saveas(fig_PCB_over_time,'./figures/PCB_tot_over_time.png');
 % -------------------------------------------------------------------------
 % Plotting the graph for the 3 PCB of interest
 % -------------------------------------------------------------------------
