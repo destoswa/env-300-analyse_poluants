@@ -1,0 +1,12 @@
+- traiter les données --> macro param / micro ( mx et PCB/PAH)
+-> interèretation : 
+1M au cours du temps 
+Autres partie plus générale sur l'ensemble des sites 
+
+-> Discussion : recherche historique  
+correlation amont/aval des sites 
+
+- A interpréter : MZB 
+
+
+PCB/ PAH : extraire en tab les valeurs pour chaque PBC/PAH et ensuite faireun graphic de la somme des 12 PCB/PAH & rapporté à 100%

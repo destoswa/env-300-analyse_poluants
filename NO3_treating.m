@@ -12,7 +12,7 @@ grid minor
 hold on 
 yline(mean_NO3_A21,  '-', 'Moyenne', 'linewidth', 3)
 hold off
-Y = round(macroparametre(7,:),2);
+Y = round(macroparametre(7,:),3);
 text(1:length(Y),Y,num2str(Y'),'vert','bottom','horiz','center'); 
 set(gca,'XTickLabel',Group_T);
 xlabel('Site de prélèvement')

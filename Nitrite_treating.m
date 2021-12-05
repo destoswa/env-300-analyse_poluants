@@ -12,7 +12,7 @@ grid minor
 hold on 
 yline(mean_Nitrite_A21, '-', 'Moyenne', 'linewidth', 3)
 hold off
-Y = round(macroparametre(9,:),2);
+Y = round(macroparametre(9,:),3);
 text(1:length(Y),Y,num2str(Y'),'vert','bottom','horiz','center'); 
 set(gca,'XTickLabel',Group_T);
 set(gca,'Ylim',[0 0.07]);
