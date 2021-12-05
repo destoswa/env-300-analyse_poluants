@@ -1,5 +1,7 @@
 
 TOC_DOC_2021=readtable('data/TOC_DOC_2021.csv','TreatAsEmpty','-');
+TOC_DOC_2019=readtable('data/TOC_DOC_2019.csv','TreatAsEmpty','-');
+
 %% 2021
 
 mean_TOC_A21=mean(nonzeros(TOC_DOC_2021.TOC));
@@ -16,7 +18,7 @@ yline(mean_TOC_A21, '-', 'Moyenne', 'linewidth', 3)
 hold off
 Y = round(TOC_DOC_2021.TOC,3);
 
-text(1:length(Y),Y, num2str(Y'),'vert','bottom','horiz','center'); 
+text(1:length(Y),Y, num2str(Y),'vert','bottom','horiz','center'); 
 set(gca,'XTickLabel',Group_T);
 
 xlabel('Site de prélèvement')
@@ -31,7 +33,7 @@ saveas(figure(1),'./figures/TOC_2021.png')
 %Temperature 
 
 
-TOC_old_T=TOC_old';
+TOC_old(11,:)=TOC_DOC_2019.TOC;
 
 for i=1:10
  mean_TOC_A(i)=mean(nonzeros(TOC_old(i,:)));
@@ -39,7 +41,7 @@ for i=1:10
 end
 mean_TOC_A(11)=nan;
 mean_TOC_A(12)=nan;
-mean_TOC_A(13)=nan;
+mean_TOC_A(13)=mean(nonzeros(TOC_DOC_2019.TOC));
 mean_TOC_A(14)=nan;
 mean_TOC_A(15)=mean_TOC_A21;
 
@@ -48,7 +50,7 @@ for j=1:8
     meanS(j)=mean(nonzeros(TOC_old_T(j,:)));
 end
 figure(2)
-b = bar(TOC_old_T,'FaceColor','flat');
+b = bar(TOC_old','FaceColor','flat');
 
 b(1).CData = [0.6 0.3 0] ;
 b(2).CData = [1 0.5 0.3] ;
@@ -69,9 +71,9 @@ grid on
 grid minor
 set(gca,'XTickLabel',Groups_old);
 xlabel('Site de prélèvement')
-ylabel('Ortho-TOC [mg /L P]')
-title("Concentration de TOC et moyennes de 2007 à 2016")
-legend('2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','Moyenne','location','northwestoutside');
+ylabel('TOC [mg /L C]')
+title("TOC et moyennes de 2007 à 2016")
+legend('2007','2008','2009','2010','2011','2012','2013','2014','2015','2016', '2019', 'Moyenne','location','northwestoutside');
 saveas(figure(2),'./figures/TOC_old.png')
 
 
@@ -90,7 +92,7 @@ grid on
 
 xlabel('Année')
 ylabel('TOC [mg /L C]')
-title("Moyenne de TOC de 2007 à 2021")
+title("Moyenne de TOC de 2008 à 2021")
 
 saveas(figure(3),'./figures/TOC_meanA.png')
 

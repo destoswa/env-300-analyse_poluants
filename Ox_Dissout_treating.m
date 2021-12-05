@@ -89,6 +89,5 @@ title("Moyenne d'oxygène de 2007 à 2021")
 
 saveas(figure(3),'./figures/Ox_meanA.png')
 
-
-
-
+ox_pour_mean=[macroparametre(3,1:8),macroparametre(3,11:13)];
+mean_norm=mean(nonzeros(ox_pour_mean));
