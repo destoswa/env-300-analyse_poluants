@@ -18,6 +18,8 @@ PAH_raw = PAH_raw(1:17,:);
 
 %extraction des métaux lourds:
 HM_raw = readtable('data/Heavy_metals_2021.csv');
+HM_indicative_values_raw = readtable('data/HM_valeurs_indicatives.csv');
+HM_mass_raw = readtable('data/HM_PCBPAH_masses_sediments.csv');
 
 % -------------------------------------------------------------------------
 % TRAITEMENT PCB ET PAH
@@ -56,6 +58,8 @@ HM_datas(isnan(HM_datas)) = 0;
 HM_GroupNames = table2array(HM_raw(2:end,1));
 HM_Elements = HM_raw.Properties.VariableNames;
 HM_Elements = HM_Elements(2:end);
+HM_indicatives = table2array(HM_indicative_values_raw(1,2:end));
+HM_mass = table2array(HM_mass_raw(2,2:end));
 
 % -------------------------------------------------------------------------
 % TRAITEMENT DES MACRO-PARAMETRES
@@ -98,6 +102,6 @@ Groups_old = table2array(macro_old_raw(12,2:end))';
 % save data_macroparametre.mat macroparametre;
 % save data_PCB_PAH.mat PCB_calibrate PCB_datas PCB_elements PAH_calibrate PAH_datas PAH_elements PCBPAHgroupNames;
 % save data_PCB_old PCB_tot_08to16 PCB_tot_08to16_groupNames PCB_tot_08to16_years PCB_2019_calibrate PCB_2019_datas PCB_2019_groupNames;
-% save HeavyMetals.mat HM_datas HM_GroupNames HM_Elements;
+% save HeavyMetals.mat HM_datas HM_GroupNames HM_Elements HM_indicatives HM_mass;
 % save data_old_macro.mat Years_old Groups_old Temp_old Cond_old pH_old Ox_old Nitrate_old Nitrite_old Chlorure_old Sulfate_old Ammonium_old Phosphate_old TOC_old DOC_old;
 

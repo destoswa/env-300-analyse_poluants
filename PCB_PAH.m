@@ -11,11 +11,13 @@ load('data_PCB_old.mat');
 
 fig_PCB_all = figure(1);
 PCB_concentrations = zeros(12,13);
+%     PCB_concentrations_Unite = zeros(12,13);
 %for each PCB:
 for i=1:12
     pl = polyfit([PCB_calibrate(i,1) PCB_calibrate(i,3) PCB_calibrate(i,5) PCB_calibrate(i,7)],[PCB_calibrate(i,2) PCB_calibrate(i,4) PCB_calibrate(i,6) PCB_calibrate(i,8)],1);
     x = linspace(PCB_calibrate(i,1),PCB_calibrate(i,7),200);
     PCB_concentrations(i,:) = (PCB_datas(i,:))./pl(1);
+%     PCB_concentrations_Unite(i,:) = PCB_concentrations(i,:)*0.946/5000;
     subplot(4,3,i);
     %linear regression
     lr = plot(x,pl(1)*x,'-','color','red','LineWidth',1.2);
@@ -44,17 +46,18 @@ suptitle('All PCBs detected in the sites of interest');
 % -------------------------------------------------------------------------
 PCB_totaux = zeros(13,1);
 PCB_totaux = sum(PCB_concentrations);
-
+PCB_totaux = PCB_totaux*0.946/5;
 fig_PCB_Tot = figure(2);
 bar(PCB_totaux)
 Y = round(PCB_totaux,2);
 text(1:length(Y),Y,num2str(Y'),'vert','bottom','horiz','center'); 
 title('PCB totaux 2021');
 set(gca,'XTickLabel',PCBPAHgroupNames);
-ylabel('Concentration [ng/ml]');
+ylabel('Concentration [ng/g]');
+ylim([0 max(Y)*1.2]);
 grid on
 grid minor
-% saveas(fig_PCB_Tot,'./figures/PCB_Totaux_2021.png');
+saveas(fig_PCB_Tot,'./figures/PCB_Totaux_2021.png');
 
 % -------------------------------------------------------------------------
 % Computing of total PCBs over time
@@ -68,7 +71,7 @@ end
 % y = x.*pl(:,1);
 % plot(x,y);
 PCB_2019_concentrations = diag(1./pl(:,1))*PCB_2019_datas;
-PCB_2019_tot = sum(PCB_2019_concentrations,1);
+PCB_2019_tot = sum(PCB_2019_concentrations,1)*0.946/5;
 PCB_2019_tot_mean = [PCB_2019_tot(1),mean([PCB_2019_tot(2) PCB_2019_tot(3)])...
     ,PCB_2019_tot(4),PCB_2019_tot(5),PCB_2019_tot(6),mean([PCB_2019_tot(7)...
     PCB_2019_tot(8)]),PCB_2019_tot(9),mean([PCB_2019_tot(10),PCB_2019_tot(11)])];
@@ -100,12 +103,13 @@ for i=1:size(PCB_totaux_ot,2)
    hold off
    set(gca,'XTickLabel',PCB_totaux_ot_years);
    ylim([0 max(PCB_totaux_ot(:,i))*1.2]);
+   ylim([0 32]);
    if i == 5
-      ylim([0 30]); 
+      ylim([0 32]); 
    end
 end
 suptitle('Total concentration of PCBs over the years for each group');
-saveas(fig_PCB_over_time,'./figures/PCB_tot_over_time.png');
+% saveas(fig_PCB_over_time,'./figures/PCB_tot_over_time.png');
 % -------------------------------------------------------------------------
 % Plotting the graph for the 3 PCB of interest
 % -------------------------------------------------------------------------
