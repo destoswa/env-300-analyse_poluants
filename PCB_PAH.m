@@ -57,7 +57,7 @@ ylabel('Concentration [ng/g]');
 ylim([0 max(Y)*1.2]);
 grid on
 grid minor
-saveas(fig_PCB_Tot,'./figures/PCB_Totaux_2021.png');
+% saveas(fig_PCB_Tot,'./figures/PCB_Totaux_2021.png');
 
 % -------------------------------------------------------------------------
 % Computing of total PCBs over time
@@ -96,7 +96,7 @@ for i=1:size(PCB_totaux_ot,2)
 %    bar(PCB_totaux_ot_years, PCB_totaux_ot(:,i));
    bar(PCB_totaux_ot(:,i));
    hold on
-   ylabel('Concentration [ng/ml]');
+   ylabel('Concentration [ng/g]');
    title(extractAfter(PCB_tot_08to16_groupNames(i),'x'));
    Y = round(PCB_totaux_ot(:,i),2);
    text(1:length(Y),Y,num2str(Y),'vert','bottom','horiz','center');
